@@ -1,0 +1,183 @@
+//* use Reasonable System for CSS Stylesheet Structure (http://rscss.io) *//
+
+$font-teko: 'Teko-Regular';
+$font-teko-light: 'Teko-Light';
+
+@include font-face($font-teko, 'Teko-Regular');
+@include font-face($font-teko-light, 'Teko-Light');
+
+$color-orange: #e96e44;
+$color-grey: #525451;
+$color-grey-light: #575757;
+$color-grey-dark: #2e2e2e;
+$text-color: #d2d2d2;
+
+html {
+	font-size: 10px;
+}
+body {
+	background: $color-grey-dark;
+	font-family: $font-teko, sans-serif;
+	line-height: 1;
+}
+.main-container {
+	padding: 1rem 0.8rem;
+	margin: 0 auto;
+	width: 32rem;
+}
+
+.puzzle-types {
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	margin: 3rem 0 0.3rem;
+	text-align: center;
+	> .type {
+		background: $color-grey;
+		border-radius: 3px;
+		color: $color-orange;
+		cursor: pointer;
+		display: inline-block;
+		font-size: 2rem;
+		padding: 0.3rem 0.7rem 0;
+		margin: 0 0.3rem;
+		vertical-align: middle;
+	}
+	> .type.-selected {
+		background: $color-orange;
+		color: $color-grey-dark;
+		font-size: 3rem;
+	}
+	> .-selected[data-type="9"] + [data-type="16"],
+	> .-selected[data-type="25"],
+	> [data-type="9"] {
+		order: 1;
+	}
+	> [data-type="16"],
+	> .-selected[data-type="9"] {
+		order: 2;
+	}
+	> [data-type="25"] {
+		order: 3;
+	}
+}
+
+.puzzle-title {
+	color: $text-color;
+	font-family: $font-teko-light, sans-serif;
+	font-size: 6rem;
+	
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.puzzle-toolbar {
+	color: $text-color;
+	overflow: hidden;
+	margin-bottom: 1rem;
+	> .steps,
+	> .timer {
+		display: inline-block;
+		font-size: 3.2rem;
+		font-family: $font-teko-light, sans-serif;
+		margin: 0 2rem;
+		padding-left: 2.6rem;
+		position: relative;
+		width: 6rem;
+	}
+	> .steps {
+		float: left;
+	}
+	> .timer {
+		float: right;
+	}
+	> .steps:before,
+	> .timer:before {
+		color: $color-orange;
+		font-size: 2rem;
+		position: absolute;
+		left: 0;
+		top: 0.6rem;
+	}
+	> .steps:before {
+		content: '\021C4';
+	}
+	> .timer:before {
+		content: '\1F550';
+	}
+}
+
+.puzzle-container {
+	box-sizing: border-box;
+	color: $text-color;
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	> .item {
+		background: $color-grey-light;
+		border-radius: 3px;
+		box-sizing: border-box;
+		cursor: pointer;
+		float: left;
+		font-size: 4rem;
+		margin: 1%;
+		padding: 2.3rem 0 1.5rem;
+		overflow: hidden;
+		text-align: center;
+	}
+	> .item:not(.-empty):hover {
+		background: darken($color-grey-light, 3%);
+	}
+	> .item.-empty {
+		background: transparent;
+		text-indent: -9999px;
+	}
+	&.-type9 > .item {
+		width: 31.3333%;
+	}
+	&.-type16 > .item {
+		width: 23%;
+	}
+	&.-type25 > .item {
+		width: 18%;
+	}
+	> .message {
+		background: transparentize($color-grey, 0.1);
+		box-sizing: border-box;
+		font-size: 4rem;
+		height: 100%;
+		left: 0;
+		padding-top: 25%;
+		position: absolute;
+		text-align: center;
+		top: 0;
+		width: 100%;
+	}
+}
+
+.btn-group {
+	margin-top: 2rem;
+	font-size: 0;
+	text-align: center;
+}
+
+.puzzle-btn {
+	background: $color-grey;
+	border: none;
+	border-radius: 3px;
+	color: $color-orange;
+	cursor: pointer;
+	font-family: $font-teko, sans-serif;
+	font-size: 3rem;
+	padding: 0.5rem 1.5rem 0.2rem;
+	margin: 0 1rem;
+	text-align: center;
+	text-transform: uppercase;
+	transition: background 0.5s ease;
+	&:hover {
+		background: darken($color-grey,3%);
+		color: darken($color-orange,3%);
+		box-shadow: inset 0 0 0 2px darken($color-orange,3%);
+	}
+}
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Gem Puzzle</title>
+	<link rel="stylesheet" href="dist/css/main.css">
+	
+</head>
+<body>
+
+	<header>
+		<div class="main-container">
+			<ul class="puzzle-types js-puzzle-types">
+				<li data-type="9" class="type">8</li>
+				<li data-type="16" class="type -selected">15</li>
+				<li data-type="25" class="type">24</li>
+			</ul>
+			<h1 class="puzzle-title">Puzzle</h1>
+		</div>
+	</header>
+	
+	<main>
+		<div class="main-container">
+			<div class="puzzle-toolbar">
+				<span class="steps js-step-counter"></span>
+				<span class="timer js-time-counter"></span>
+			</div>
+			<div class="js-puzzle-container puzzle-container -type16"></div>
+		</div>
+	</main>
+	
+	<footer>
+		<div class="main-container">
+			<div class="btn-group">
+				<button class="puzzle-btn js-restart-game">freshly</button>
+				<button class="puzzle-btn js-new-game">new game</button>
+			</div>
+		</div>
+	</footer>
+	
+	<script src="dist/js/main.min.js"></script>
+
+</body>
+</html>
