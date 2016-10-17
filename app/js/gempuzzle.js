@@ -158,7 +158,8 @@ var GemPuzzle = (function () {
 
             var restartGame = document.querySelector('.js-restart-game'),
                 newGame = document.querySelector('.js-new-game'),
-                puzzleTypes = document.querySelector('.js-puzzle-types');
+                puzzleTypes = document.querySelector('.js-puzzle-types'),
+                backHomeBtn = document.querySelector('.js-back-home-btn');
 
             startNewGame();
 
@@ -216,6 +217,10 @@ var GemPuzzle = (function () {
                     itemsNumber = type;
                     startNewGame();
                 }
+            });
+
+            backHomeBtn.addEventListener('click', function() {
+                CommonGameObj.loadHomePage();
             });
         }
     };

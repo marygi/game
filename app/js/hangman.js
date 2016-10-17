@@ -268,19 +268,18 @@ var HangMan = (function () {
             canvas = document.querySelector('.js-hangman-canvas');
 
             var newGameBtn = document.querySelector('.js-new-game-btn'),
-                langSwitcher = document.querySelector('.js-language-switcher');
+                langSwitcher = document.querySelector('.js-language-switcher'),
+                backHomeBtn = document.querySelector('.js-back-home-btn');
 
             CommonGameObj.fetchData('json/words.json',{},function(data) {
                 wordsObj = JSON.parse(data);
 
-                if(wordsObj) {
-                    hangManCanvas.init();
-                    startNewGame();
-                }
+                console.log(wordsObj);
+                hangManCanvas.init();
+                startNewGame();
             });
 
             alphabetContainer.addEventListener('click', function(event) {
-
                 var target = event.target,
                     classes = target.classList,
                     index = parseInt(target.getAttribute('data-index'));
@@ -315,6 +314,10 @@ var HangMan = (function () {
                 } else {
                     showSourceWord();
                 }
+            });
+
+            backHomeBtn.addEventListener('click', function() {
+                CommonGameObj.loadHomePage();
             });
         }
     }
