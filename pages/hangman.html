@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="../dist/css/main.css">
+</head>
+
+<body class="hangman-body">
+
+	<main>
+		<div class="hangman-main-container">
+			
+			<!-- WORD -->
+			<div class="hangman-word js-word-container"></div>
+			
+			<!-- CANVAS -->
+			<div class="hangman-canvas-box js-hangman-container">
+				<canvas class="js-hangman-canvas" width="240" height="240"></canvas>
+				<div class="hangman-message js-message-container"></div>
+			</div>
+			
+			<!-- ALPHABET-->
+			<div class="text-center"> choose a letter...</div>
+			<div class="hangman-alphabet js-alphabet-container"></div>
+			
+			<!-- TRIERS -->
+			<div class="hangman-attempt">Tries left: <span class="counter js-attempt-container"></span></div>
+			
+			<!-- HINT -->
+			<div class="hangman-hint">Hint: <span class="js-hint-container"></span></div>
+			
+			<aside class="hangman-aside">
+				<span class="hangman-btn js-new-game-btn">New game</span>
+				<!-- LANG SWITCHER -->
+				<ul class="hangman-language-switcher js-language-switcher">
+					<li class="item" data-lang="lang_en">EN</li>
+					<li class="item" data-lang="lang_ru">RU</li>
+				</ul>
+			</aside>
+		</div>
+	</main>
+
+	<script src="../dist/js/main.min.js"></script>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function(){
+			HangMan.init();
+		});
+	</script>
+</body>
+</html>

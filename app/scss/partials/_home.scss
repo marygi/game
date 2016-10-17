@@ -1,0 +1,79 @@
+.home-page-body {
+	background: resolve('cubes.png') repeat 0 0;
+	color: #34515e;
+	font-size: 2rem;
+	font-family: $font-lato, sans-serif;
+}
+.home-page-container {
+	max-width: 60rem;
+	margin: 0 auto;
+}
+.home-page-title {
+	font-size: 2rem;
+	letter-spacing: 1px;
+	text-align: center;
+	text-transform: uppercase;
+}
+.home-header {
+	margin: 8rem 0;
+}
+.games-list {
+	text-align: center;
+	> .btn {
+		background: transparent;
+		border: 3px solid #34515e;
+		box-sizing: border-box;
+		color: #34515e;
+		cursor: pointer;
+		display: inline-block;
+		font-family: $font-lato-bold, sans-serif;
+		font-size: 1.6rem;
+		letter-spacing: 1px;
+		margin: 1.5rem 3rem;
+		min-width: 25rem;
+		outline: medium none;
+		padding: 2.5rem 0;
+		position: relative;
+		text-align: center;
+		text-transform: uppercase;
+	}
+	.btn:after {
+		background: #34515e;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		transition: all 0.3s ease 0s;
+		top: 0;
+		width: 100%;
+		z-index: -1;
+	}
+	> .btn:hover {
+		color: #f4f4f4;
+	}
+	> .btn:hover:after {
+		height: 100%;
+	}
+}
+.preloader-wrapper {
+	background: rgba(#e3f4fd, 1);
+	display: none;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	top: 0;
+	&.-show {
+		display: block;
+	}
+	> .preloader {
+		background: resolve('preloader.gif') no-repeat 50% 50%;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		top: 0;
+	}
+}
+
+

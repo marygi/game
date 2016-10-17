@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="../dist/css/main.css">
+</head>
+<body class="home-page-body">
+	<header class="home-header">
+		<div class="home-page-container">
+			<h2 class="home-page-title">Choose the game</h2>
+		</div>
+	</header>
+	<main class="home-main">
+		<div class="home-page-container">
+			<div class="games-list js-game-selection">
+				<span data-game="HangMan" data-init="init" data-body="hangman-body" data-path="hangman" class="btn">Hangman</span>
+				<span data-game="GemPuzzle" data-init="init" data-body="gem-puzzle-body" data-path="gempuzzle" class="btn">Gem Puzzle</span>
+				<span data-game="VideoPoker" data-init="init" data-body="video-poker-body" data-path="videopoker" class="btn">Video Poker</span>
+			</div>
+		</div>
+	</main>
+	<script src="../dist/js/main.min.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function(){
+			CommonGameObj.initGameSelection();
+		});
+	</script>
+</body>
+</html>

@@ -1,26 +1,14 @@
-//* use Reasonable System for CSS Stylesheet Structure (http://rscss.io) *//
-
-$font-teko: 'Teko-Regular';
-$font-teko-light: 'Teko-Light';
-
-@include font-face($font-teko, 'Teko-Regular');
-@include font-face($font-teko-light, 'Teko-Light');
-
 $color-orange: #e96e44;
 $color-grey: #525451;
 $color-grey-light: #575757;
 $color-grey-dark: #2e2e2e;
 $text-color: #d2d2d2;
 
-html {
-	font-size: 10px;
-}
-body {
+.gem-puzzle-body {
 	background: $color-grey-dark;
 	font-family: $font-teko, sans-serif;
-	line-height: 1;
 }
-.main-container {
+.puzzle-main-container {
 	padding: 1rem 0.8rem;
 	margin: 0 auto;
 	width: 32rem;
@@ -155,7 +143,7 @@ body {
 	}
 }
 
-.btn-group {
+.puzzle-btn-group {
 	margin-top: 2rem;
 	font-size: 0;
 	text-align: center;
@@ -180,4 +168,3 @@ body {
 		box-shadow: inset 0 0 0 2px darken($color-orange,3%);
 	}
 }
-

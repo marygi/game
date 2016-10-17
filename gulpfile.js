@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
     sass = require('gulp-sass'),
@@ -7,7 +8,6 @@ var gulp = require('gulp'),
     mqpacker = require('css-mqpacker'),
     autoprefixer = require('autoprefixer'),
     plumber = require('gulp-plumber'),
-    cache = require('gulp-cached'),
     gulpif = require('gulp-if'),
     sourcemaps = require('gulp-sourcemaps'),
     fs = require('fs'),
@@ -24,10 +24,10 @@ var gulp = require('gulp'),
     };
 
 gulp.task('scripts', function() {
-    return gulp.src(config.appJsDir + 'main.js')
+    return gulp.src(config.appJsDir + '*.js')
         .pipe(plumber())
-        .pipe(cache('main.js'))
         .pipe(gulpif(config.sourceMaps, sourcemaps.init()))
+        .pipe(concat('main.js'))
         .pipe(uglify())
         .pipe(gulpif(config.sourceMaps, sourcemaps.write()))
         .pipe(rename({suffix: '.min'}))
@@ -38,7 +38,7 @@ gulp.task('styles', function() {
     return gulp.src(config.appCssDir + 'main.scss')
         .pipe(plumber())
         .pipe(gulpif(config.sourceMaps, sourcemaps.init()))
-        .pipe(sass(/*{outputStyle: 'compressed'}*/).on('error', sass.logError))
+        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(postcss(
             [
                 assets({
@@ -76,14 +76,10 @@ gulp.task('watch', function() {
     gulp.watch(config.appFontDir + '**', ['fonts']);
 });
 
-gulp.task('clearCache', function() {
-    cache.caches = {};
-});
-
 gulp.task('enableSourceMaps', function() {
     config.sourceMaps = true;
 });
 
 gulp.task('debug', ['enableSourceMaps', 'default']);
 
-gulp.task('default', ['clearCache', 'styles', 'scripts', 'fonts', 'images', 'watch']);
+gulp.task('default', [ 'styles', 'scripts', 'fonts', 'images', 'watch']);

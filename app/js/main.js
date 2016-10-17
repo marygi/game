@@ -1,231 +1,63 @@
-document.addEventListener('DOMContentLoaded', function(){
-    var GemPuzzle = (function () {
+var CommonGameObj = {
+    loadHomePage: function () {
+        var _self = this,
+            options = {
+                body : 'home-page-body',
+                game: 'CommonGameObj',
+                init: 'initGameSelection'
+            };
 
-        var gemPuzzle = [],
-            clonedPuzzle = [],
-            zero,
-            timer,
-            itemsNumber = 16,
-            counter = 0,
-            minutes = 0,
-            seconds = 0,
-            puzzleContainer,
-            timerContainer,
-            counterContainer;
+        _self.fetchData('pages/home.html', options, _self.initLoadedPage);
+    },
 
-        function startNewGame(restart) {
+    initLoadedPage: function(data, options) {
 
-            resetGameValues();
+        if(data) {
+            document.body.innerHTML = data;
+            document.body.className = options.body;
 
-            if (restart) {
-                gemPuzzle = clonePuzzleSet(clonedPuzzle);
-            } else {
-                createPuzzle();
-                clonedPuzzle = clonePuzzleSet(gemPuzzle);
+            if(options.game && options.init) {
+                window[options.game][options.init]();
             }
-
-            setGameValues();
         }
+    },
 
-        function setGameValues() {
-            setZeroValue();
-            createPuzzleMarkUp();
-            updateCounter();
-            updateTimer();
-        }
+    initGameSelection: function() {
+        var _self = this;
 
-        function resetGameValues() {
-            gemPuzzle = [];
-            counter = 0;
-            puzzleContainer.innerHTML = '';
-            stopTimer();
-        }
+        document.querySelector('.js-game-selection').addEventListener('click', function(e) {
+            var target = e.target,
+                path = 'pages/' + target.getAttribute('data-path') + '.html',
+                options = {
+                    body: target.getAttribute('data-body'),
+                    game: target.getAttribute('data-game'),
+                    init: target.getAttribute('data-init')
+                };
 
-        function createPuzzle() {
-            for (var i = 0; i < itemsNumber; i++) {
-                gemPuzzle.push(i);
-            }
+            _self.fetchData(path, options, _self.initLoadedPage);
+        });
+    },
 
-            gemPuzzle.sort(function() {
-                return getRandomNum(0, itemsNumber);
-            });
-        }
+    getRandomNum: function(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    },
 
-        function clonePuzzleSet(arrFrom) {
-            return arrFrom.slice();
-        }
+    fetchData: function (path, options, callback) {
+        var httpRequest = new XMLHttpRequest();
 
-        function setZeroValue(index) {
-            zero = index ? index : gemPuzzle.indexOf(0);
-        }
+        httpRequest.onreadystatechange = function() {
+            if (httpRequest.readyState === 4) {
+                if (httpRequest.status === 200) {
+                    var data = httpRequest.responseText;
 
-        function createPuzzleMarkUp() {
-            var fragment = document.createDocumentFragment();
-
-            for (var i = 0; i < itemsNumber; i++) {
-
-                var item = document.createElement('span');
-
-                item.innerHTML = gemPuzzle[i];
-                item.className = 'item';
-                item.setAttribute('data-index', i);
-
-                if (i === zero) {
-                    item.className = 'item -empty';
-                }
-
-                fragment.appendChild(item);
-            }
-
-            puzzleContainer.appendChild(fragment);
-        }
-
-        function swapPuzzles(index) {
-            var value = gemPuzzle.splice(index, 1, gemPuzzle[zero]);
-            gemPuzzle.splice(zero, 1, value[0]);
-        }
-
-        function checkPuzzleIsSolved () {
-            var puzzleIsCollect = false,
-                i,
-                len = itemsNumber - 1;
-
-            for (i = 1; i < len; i++) {
-                // each next element in array should be larger than previous, except the last, the last should be zero
-                if ( gemPuzzle[len] === 0 && gemPuzzle[i] > gemPuzzle[i-1] ) {
-                    puzzleIsCollect = true;
-                } else {
-                    puzzleIsCollect = false;
-                    break;
-                }
-            }
-
-            if(puzzleIsCollect) {
-                return true;
-            }
-
-            return false;
-        }
-
-        function checkForClickableArea(index) {
-            // get amount of elements in row
-            var j = Math.sqrt(itemsNumber);
-            // check position of element relative to empty cell
-            if (index === zero + 1 || index === zero - 1 || index === zero + j || index === zero - j) {
-                return true;
-            }
-
-            return false;
-        }
-
-        function updateCounter() {
-            counterContainer.innerHTML = counter;
-        }
-
-        function updateTimer () {
-            timerContainer.innerHTML = formatNumber(minutes) + ':' + formatNumber(seconds);
-        }
-
-        function stopTimer () {
-            clearInterval(timer);
-            minutes = 0;
-            seconds = 0;
-        }
-
-        function showCongratulatoryMessage () {
-            var div = document.createElement('div');
-
-            div.className = 'message';
-            div.innerHTML = 'Congratulations! You have successfully finished the puzzle!';
-
-            puzzleContainer.appendChild(div);
-
-            setTimeout(function() {
-                puzzleContainer.removeChild(div);
-            }, 3000);
-
-        }
-
-        function formatNumber(number) {
-            return (number < 10 ? '0' : '') + number;
-        }
-
-        function getRandomNum(min, max) {
-            return Math.floor(Math.random() * (max - min)) + min;
-        }
-
-        return {
-            init: function () {
-
-                puzzleContainer = document.querySelector('.js-puzzle-container');
-                timerContainer = document.querySelector('.js-time-counter');
-                counterContainer = document.querySelector('.js-step-counter');
-
-                var restartGame = document.querySelector('.js-restart-game'),
-                    newGame = document.querySelector('.js-new-game'),
-                    puzzleTypes = document.querySelector('.js-puzzle-types');
-
-                startNewGame();
-
-                puzzleContainer.addEventListener('click', function(event){
-                    var target = event.target,
-                        index = parseInt(target.getAttribute('data-index'));
-
-                    if (checkForClickableArea(index)) {
-
-                        swapPuzzles(index);
-                        setZeroValue(index);
-
-                        counter++;
-                        if (counter === 1) {
-                            timer = setInterval(function() {
-                                seconds++;
-                                if(!(seconds % 60)) {
-                                    seconds = 0;
-                                    minutes++;
-                                }
-                                updateTimer();
-                            }, 1000);
-                        }
-
-                        puzzleContainer.innerHTML = '';
-                        createPuzzleMarkUp();
-                        updateCounter();
-
-                        if (checkPuzzleIsSolved()) {
-                            stopTimer();
-                            showCongratulatoryMessage();
-                        }
+                    if (callback) {
+                        callback(data, options);
                     }
-                });
-
-                restartGame.addEventListener('click', function(){
-                    startNewGame(true);
-                });
-
-                newGame.addEventListener('click', function(){
-                    startNewGame();
-                });
-
-                puzzleTypes.addEventListener('click', function(event){
-                    var target = event.target,
-                        classes = target.classList,
-                        type = parseInt(target.getAttribute('data-type'));
-
-                    if(!classes.contains('-selected')) {
-                        target.parentNode.querySelector('.type.-selected').classList.remove('-selected');
-                        classes.add('-selected');
-                        puzzleContainer.classList.remove('-type' + itemsNumber);
-                        puzzleContainer.classList.add('-type' + type);
-
-                        itemsNumber = type;
-                        startNewGame();
-                    }
-                });
-
+                }
             }
         };
-    })();
 
-    GemPuzzle.init();
-});
+        httpRequest.open('GET', path, true);
+        httpRequest.send();
+    }
+};

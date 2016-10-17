@@ -1,0 +1,18 @@
+/* Teko */
+$font-teko: 'Teko-Regular';
+$font-teko-light: 'Teko-Light';
+
+@include font-face($font-teko, 'Teko-Regular');
+@include font-face($font-teko-light, 'Teko-Light');
+
+/* Lato */
+$font-lato: 'Lato-Regular';
+$font-lato-bold: 'Lato-Bold';
+
+@include font-face($font-lato, 'Lato-Regular');
+@include font-face($font-lato-bold, 'Lato-Bold');
+
+/* Neucha */
+$font-neucha: 'Neucha';
+
+@include font-face($font-neucha, 'Neucha');
