@@ -1,5 +1,4 @@
-{
-  "lang_ru": [
+{"lang_ru": [
     {
       "category": "Страны и континенты",
       "total": 32,
@@ -213,6 +212,31 @@
         "tennis",
         "football",
         "chess"
+      ]
+    },
+    {
+      "category": "Buildings",
+      "total": 19,
+      "words": [
+        "library",
+        "hospital",
+        "gallery",
+        "zoo",
+        "cafe",
+        "cinema",
+        "kiosk",
+        "mosque",
+        "bridge",
+        "museum",
+        "monument",
+        "restaurant",
+        "synagogue",
+        "cathedral",
+        "stadium",
+        "statue",
+        "theatre",
+        "church",
+        "circus"
       ]
     }
   ]

@@ -13,6 +13,7 @@
     "gulp-babel": "*",
     "gulp-cached": "*",
     "gulp-concat": "^2.6.0",
+    "gulp-connect": "^5.0.0",
     "gulp-if": "*",
     "gulp-imagemin": "^3.0.3",
     "gulp-plumber": "*",

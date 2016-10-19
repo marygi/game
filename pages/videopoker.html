@@ -1,18 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Video Poker</title>
-	<link rel="stylesheet" href="../dist/css/main.css">
-</head>
-<body>
-
-<script src="../dist/js/main.min.js"></script>
-<script>
-	document.addEventListener('DOMContentLoaded', function(){
-		VideoPoker.init();
-	});
-</script>
-
-</body>
-</html>
+<header>
+	<div class="video-poker-container">
+		<!-- LOGO -->
+		<div class="video-poker-logo">
+			<img src="../dist/images/logo.jpg" alt="Video Poker" class="logo">
+		</div>
+		<!-- COMBINATION TABLE -->
+		<div class="video-poker-combination -bet1 js-poker-combination-table"></div>
+	</div>
+</header>
+<main>
+	<div class="video-poker-container">
+		<!-- BET / CREDIT INFO -->
+		<div class="video-poker-game-info">
+			<div class="item">Credit:&nbsp;&nbsp;<span class="sum js-poker-credit-container"></span></div>
+			<div class="item">Win:&nbsp;&nbsp;<span class="sum js-poker-win-container"></span></div>
+			<div class="item">Bet:&nbsp;&nbsp;<span class="sum js-poker-bet-container"></span></div>
+			<div class="tip"><span class="color-yellow">*</span> Click on cards to hold</div>
+		</div>
+		
+		<!-- CARDS -->
+		<div class="video-poker-cards-holder">
+			<div class="clearfix js-poker-cards-container"></div>
+			<div class="video-poker-message js-poker-message-container"></div>
+		</div>
+		
+		<!-- BUTTONS -->
+		<aside class="video-poker-aside">
+			<span class="js-poker-bet-btn video-poker-btn">Bet One</span>
+			<span class="js-poker-bet-max-btn video-poker-btn">Bet Max</span>
+			<span class="js-poker-deal-btn video-poker-deal-btn">Deal</span>
+		</aside>
+	</div>
+</main>
+<div class="video-poker-back-btn js-back-home-btn">Back to list</div>

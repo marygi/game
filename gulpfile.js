@@ -11,6 +11,7 @@ var gulp = require('gulp'),
     gulpif = require('gulp-if'),
     sourcemaps = require('gulp-sourcemaps'),
     fs = require('fs'),
+    connect = require('gulp-connect'),
     config = {
         appJsDir: 'app/js/',
         appCssDir: 'app/scss/',
@@ -80,6 +81,10 @@ gulp.task('enableSourceMaps', function() {
     config.sourceMaps = true;
 });
 
+gulp.task('connect', function() {
+    connect.server();
+});
+
 gulp.task('debug', ['enableSourceMaps', 'default']);
 
-gulp.task('default', [ 'styles', 'scripts', 'fonts', 'images', 'watch']);
+gulp.task('default', [ 'styles', 'scripts', 'fonts', 'images', 'watch', 'connect']);

@@ -274,7 +274,6 @@ var HangMan = (function () {
             CommonGameObj.fetchData('json/words.json',{},function(data) {
                 wordsObj = JSON.parse(data);
 
-                console.log(wordsObj);
                 hangManCanvas.init();
                 startNewGame();
             });

@@ -55,6 +55,20 @@
 		height: 100%;
 	}
 }
+.home-footer-link {
+	display: inline-block;
+	margin: 2rem 1rem 0;
+	text-decoration: none;
+	overflow: hidden;
+	> .icon {
+		display: inline-block;
+		width: 5rem;
+		height: 5rem;
+		stroke-width: 0;
+		stroke: #34515e;
+		fill: #34515e;
+	}
+}
 .preloader-wrapper {
 	background: rgba(#e3f4fd, 1);
 	display: none;
