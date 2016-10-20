@@ -59,8 +59,6 @@ var VideoPoker = (function () {
 
     function startNewGame() {
         setGameValues();
-        createDeck();
-        fillCombinationTable();
         displayCards();
         displayCreditValue();
         displayWinValue();
@@ -218,7 +216,8 @@ var VideoPoker = (function () {
             var el = cardCombinations['_' + winningCombination];
             messageContainer.innerHTML = el.title + '!<br> You win ' + (bet * el.rate) + '!';
         } else {
-            messageContainer.innerHTML = credit > 0 ? 'Try Again!<br>Your Credit is ' + (credit - bet) : 'Your Credit is 0!<br><span class="text-underline js-poker-restart">Start again?</span>';
+            var loss = credit - bet;
+            messageContainer.innerHTML = (loss === 0) ? 'Your Credit is 0!<br>Press DEAL to restart game!' : 'Try Again!<br>Your Credit is ' + loss;
         }
 
         messageContainer.classList.add('-show');
@@ -296,25 +295,26 @@ var VideoPoker = (function () {
 
     function checkForStraight() {
         var temp = false,
-            i,
-            len = cardsInHandLimit - 1;
+            tempArr = [],
+            len = cardsInHandLimit -1,
+            i;
+
+        for (i = 0; i < cardsInHandLimit; i++) {
+            var firstSameRankCard = (cardsInHand[i]) % suitCardsLen;
+            if(firstSameRankCard === 0) {
+                firstSameRankCard = AceStepPosition;
+            }
+            tempArr.push(firstSameRankCard);
+        }
+
+        tempArr.sort(compareNum);
 
         for (i = 0; i < len; i++) {
-            var j = 0,
-                tempArr = [],
-                nextCard = cardsInHand[i] + 1; /* define position of first next-card in deck*/
-
-            while (j < 4) {
-                var card = (nextCard % suitCardsLen) + suitCardsLen * j;
-                tempArr.push(card);
-                j++;
-            }
-
-            if (tempArr.indexOf(nextCard) > -1) {
+            if (tempArr[i] + 1 === tempArr[i+1]) {
                 temp = true;
             } else {
                 temp = false;
-               break;
+                break;
             }
         }
 
@@ -381,10 +381,8 @@ var VideoPoker = (function () {
     function getMaxValue(val) {
         var temp = val + suitCardsLen - 1; /* in one suit - 13 cards */
 
-        if(val !== deckLen) {
-            while(temp % suitCardsLen) {
-                temp--;
-            }
+        while(temp % suitCardsLen) {
+            temp--;
         }
 
         return temp;
@@ -409,18 +407,18 @@ var VideoPoker = (function () {
         }
     }
 
-    function setMaxGameBet() {
-        bet = maxBet;
-    }
-
-    function changeGameBet() {
-        var diff = credit - bet;
-        if(diff < 0) {
-            bet = bet - diff;
-        } else if(bet === 5) {
+    function changeGameBet(max) {
+        if(max) {
+            bet = maxBet;
+        }else if(bet === maxBet && !max) {
             bet = 1;
         } else {
             bet++;
+        }
+
+        var diff = credit - bet; /* if credit < bet - set max possible bet*/
+        if(diff < 0) {
+            bet = bet + diff;
         }
     }
 
@@ -453,15 +451,22 @@ var VideoPoker = (function () {
                 dealBtn = document.querySelector('.js-poker-deal-btn'),
                 backHomeBtn = document.querySelector('.js-back-home-btn');
 
+            createDeck();
+            fillCombinationTable();
             startNewGame();
 
             dealBtn.addEventListener('click', function () {
                 if(!btnIsBlocked) {
-                    dealCards();
+                    if (credit === 0) {
+                        startNewGame();
+                    } else {
+                        dealCards();
+                    }
+
                     btnIsBlocked = true; /* to prevent double click*/
                     setTimeout(function(){
                         btnIsBlocked = false;
-                    },1000);
+                    },800);
                 }
             });
 
@@ -474,7 +479,7 @@ var VideoPoker = (function () {
 
             betMaxBtn.addEventListener('click', function () {
                 if(!cardsInHand.length) {
-                    setMaxGameBet();
+                    changeGameBet(true);
                     displayBetValue();
                 }
             });
