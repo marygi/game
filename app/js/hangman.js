@@ -125,7 +125,7 @@ var HangMan = (function () {
         wordContainer.innerHTML = null;
         messageContainer.innerHTML = null;
         attempt = 6,
-            displayedWord = '';
+        displayedWord = '';
         hangManCanvas.eraseHuman();
     }
 

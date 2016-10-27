@@ -24,9 +24,9 @@ var CommonGameObj = {
     initGameSelection: function() {
         var _self = this;
 
-        document.querySelector('.js-game-selection').addEventListener('click', function(e) {
+        var gameSelectionClick =  function(e) {
             var target = e.target,
-                path = 'pages/' + target.getAttribute('data-path') + '.html',
+                path = './pages/' + target.getAttribute('data-path') + '.html',
                 options = {
                     body: target.getAttribute('data-body'),
                     game: target.getAttribute('data-game'),
@@ -34,7 +34,9 @@ var CommonGameObj = {
                 };
 
             _self.fetchData(path, options, _self.initLoadedPage);
-        });
+        };
+
+        document.querySelector('.js-game-selection').addEventListener('click', gameSelectionClick, false);
     },
 
     getRandomNum: function(min, max) {
